@@ -10,7 +10,7 @@ describe("Thermostat", function() {
 	});
 
 	it("has a minimum temperature of 10 degrees", function() {
-		expect(thermostat.MIN_TEMPERATURE).toEqual(10);
+		expect(thermostat.minTemperature).toEqual(10);
 	});
 
 	it("temperature should increase by one when increase button is pressed", function() {
@@ -24,16 +24,51 @@ describe("Thermostat", function() {
 	});
 
 	it("temperature cannot drop below 10 degrees", function() {
-		for (var i = 1; i <= 11; i += 1) { thermostat.decrease() };
-		expect(thermostat.temperature).toEqual(10)
+		thermostat.decrease(11);
+		expect(thermostat.temperature).toEqual(10);
 	});
 
 	it("power saving mode is on by default", function() {
-		expect(thermostat.isPowerSaveOn).toEqual(true)
+		expect(thermostat.isPowerSaveOn).toEqual(true);
+	});
+
+	it("temperature should increase by whatever parameter is passed", function() {
+		thermostat.increase(4);
+		expect(thermostat.temperature).toEqual(24);
+	});
+
+	it("temperature should decrease by whatever parameter is passed", function() {
+		thermostat.decrease(4);
+		expect(thermostat.temperature).toEqual(16);
 	});
 
 	it("temperature cannot pass 25 degrees when power-save mode is on", function() {
-		for (var i = 1; i <= 11; i += 1) { thermostat.increase() };
+		thermostat.increase(6);
+		expect(thermostat.temperature).toEqual(25);
+	});
+
+	it("power saving mode should be able to turn off", function() {
+		thermostat.powerSaveSwitch();
+		expect(thermostat.isPowerSaveOn).toEqual(false);
+	});
+
+	it("power saving mode should be able to turn on when off", function() {
+		thermostat.powerSaveSwitch();
+		thermostat.powerSaveSwitch();
+		expect(thermostat.isPowerSaveOn).toEqual(true);
+	});
+
+	it("temperature should never rise above 32 degrees when power save is off", function() {
+		thermostat.powerSaveSwitch();
+		thermostat.increase(13);
+		expect(thermostat.temperature).toEqual(32);
 	});
 
 });
+
+
+
+
+
+
+
