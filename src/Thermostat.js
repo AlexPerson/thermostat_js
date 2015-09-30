@@ -5,6 +5,7 @@ var Thermostat = function() {
 	this.isPowerSaveOn = true;
 	this.defaultChange = 1;
 	this.PowerSaveMax = 25;
+	this.displayColor = 'yellow'
 };
 
 Thermostat.prototype.increase = function(passedValue) {
@@ -13,6 +14,7 @@ Thermostat.prototype.increase = function(passedValue) {
 	} else {
 		this.increasePowerSaveOff(passedValue);
 	}
+	this.assignColor();
 };
 
 Thermostat.prototype.increasePowerSaveOn = function(passedValue) {
@@ -41,8 +43,9 @@ Thermostat.prototype.decrease = function(passedValue) {
 	} else if ((this.temperature-passedValue)>=this.minTemperature) {
 		this.temperature -= passedValue;
 	} else if ((this.temperature-passedValue)<this.minTemperature) {
-		this.temperature = this.minTemperature
+		this.temperature = this.minTemperature;
 	}
+	this.assignColor();
 };
 
 Thermostat.prototype.isAboveMin = function() {
@@ -56,4 +59,23 @@ Thermostat.prototype.powerSaveSwitch = function() {
 Thermostat.prototype.reset = function() {
 	this.temperature = 20;
 };
+
+Thermostat.prototype.assignColor = function() {
+	if (this.temperature<18) {
+		this.displayColor='green';
+	} else if ((this.temperature>=18) && (this.temperature<25)) {
+		this.displayColor='yellow';
+	} else {
+		this.displayColor='red';
+	}
+};
+
+
+
+
+
+
+
+
+
 

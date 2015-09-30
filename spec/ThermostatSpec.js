@@ -70,6 +70,30 @@ describe("Thermostat", function() {
 		expect(thermostat.temperature).toEqual(20);
 	});
 
+	it("assigns the color green when temperature is less than 18", function() {
+		thermostat.decrease(3);
+		expect(thermostat.displayColor).toEqual('green');
+	});
+
+	it("assigns the color yellow when temperature is decreased from above 25 to between 18 and 25", function() {
+		thermostat.powerSaveSwitch();
+		thermostat.increase(7);
+		thermostat.decrease(3);
+		expect(thermostat.displayColor).toEqual('yellow');
+	});
+
+	it("assigns the color yellow when temperature is raised from below 18 to somewhere below 25 ", function() {
+		thermostat.decrease(3);
+		thermostat.increase(5);
+		expect(thermostat.displayColor).toEqual('yellow');
+	});
+
+	it("assigns the color red when temperature is above 25", function() {
+		thermostat.powerSaveSwitch();
+		thermostat.increase(6);
+		expect(thermostat.displayColor).toEqual('red');
+	});
+
 });
 
 
