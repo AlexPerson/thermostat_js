@@ -1,5 +1,5 @@
 describe("Thermostat", function() {
-	var thermostat;
+	var thermostat
 
 	beforeEach(function() {
 		thermostat = new Thermostat();
@@ -62,6 +62,12 @@ describe("Thermostat", function() {
 		thermostat.powerSaveSwitch();
 		thermostat.increase(13);
 		expect(thermostat.temperature).toEqual(32);
+	});
+
+	it("temperature is 20 after reset", function() {
+		thermostat.increase(4);
+		thermostat.reset();
+		expect(thermostat.temperature).toEqual(20);
 	});
 
 });
